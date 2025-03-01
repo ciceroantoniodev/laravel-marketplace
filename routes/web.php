@@ -18,3 +18,9 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+Route::get('/admin/stores', [\App\Http\Controllers\Admin\StoreController::class, 'index'])
+    ->name('stores.index');
+
+Route::get('/admin/stores/store', [\App\Http\Controllers\Admin\StoreController::class, 'store'])
+    ->name('stores.store');

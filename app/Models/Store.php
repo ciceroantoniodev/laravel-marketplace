@@ -14,7 +14,8 @@ class Store extends Model
         'description',
         'about',
         'phone',
-        'whatsapp',
+        'whatsapp'
     ];
 
 }
+
