@@ -3,43 +3,71 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreFormRequest;
 use App\Models\Store;
-use Illuminate\Http\Request;
 
 class StoreController extends Controller
 {
+    public function __construct(private Store $store)
+    {
+    }
+
+
     public function index() {
 
-        $stores = Store::all();
+        $stores = $this->store->paginate(10);
 
-        return view('exemplo', compact('stores'));
+        return view('admin.stores.index', ['stores' => $stores]);
 
     }
 
 
-    public function store() {
+    public function create() {
+
+        return view('admin.stores.create');
+
+    }
+
+
+    public function store(StoreFormRequest $request) {
 
         // Create: Mass Assignment
-        // $store = Store::create([
-        //     'name' => 'Loja Exemplo 2',
-        //     'description' => 'Descrição da Loja',
-        //     'about' => 'Contexto da Loja',
-        //     'phone' => '+5599235223545',
-        //     'whatsapp' => '+5599235223545'
-        // ]);
 
-        $store = Store::findOrFail(6);
+        $this->store->create($request->all());
 
-        // $store->update([
+        return redirect()->route('admin.stores.index');
 
-        //     'name' => 'Nova Loja Exemplo 2',
-        // ]);
+    }
+
+
+    public function edit(string $store) {
+
+        $store = $this->store->findOrFail($store);
+
+        return view('admin.stores.edit', compact('store'));
+
+    }
+
+
+    public function update(string $store, StoreFormRequest $request) {
+
+        $store = $this->store->findOrFail((int)$store);
+
+        $store->update($request->all());
+
+        return redirect()->back();
+
+    }
+
+
+    public function destroy(string $store) {
+
+        $store = $this->store->findOrFail((int)$store);
 
         $store->delete();
 
-        dump($store);
+        return redirect()->back();
 
     }
-
 }
 
