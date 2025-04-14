@@ -22,6 +22,12 @@
                         {{ __('Loja') }}
                     </x-nav-link>
                 </div>
+
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('admin.products.index')" :active="request()->routeIs('admin.products.*')">
+                        {{ __('Produtos') }}
+                    </x-nav-link>
+                </div>
             </div>
 
             <!-- Settings Dropdown -->
@@ -79,6 +85,10 @@
 
             <x-responsive-nav-link :href="route('admin.stores.index')" :active="request()->routeIs('admin.stores.*')">
                 {{ __('Lojas') }}
+            </x-responsive-nav-link>
+
+            <x-responsive-nav-link :href="route('admin.products.index')" :active="request()->routeIs('admin.products.*')">
+                {{ __('Produtos') }}
             </x-responsive-nav-link>
         </div>
 

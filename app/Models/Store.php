@@ -20,6 +20,8 @@ class Store extends Model
     ];
 
 
+    // Belongs = Pertence / To = Para
+    //
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
